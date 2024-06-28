@@ -1,38 +1,62 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody playerRigidbody;
-    Vector2 moveInput;
+    [SerializeField] InputAction movement;
+    
+    [Header("Move Speed Tuning")]
+    [SerializeField] float controlSpeed = 10f;
 
-    [SerializeField] float moveSpeed = 10f;
+    //float horizontalThrow;
+    //float verticalThrow;
 
-    [SerializeField] InputAction playerMovement;
+    //float xOffset;
+    //float yOffset;
+
+    //float newXPos;
+    //float newYPos;
 
     void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-        //float horizontalThrow = Input.GetAxis("Horizontal");
-        //Debug.Log(horizontalThrow);
-
-        //float verticalThrow = Input.GetAxis("Vertical");
-        //Debug.Log(verticalThrow);
-
 
     }
 
-    private void OnMove(InputValue value)
+    private void OnEnable()
     {
-        moveInput = value.Get<Vector2>();
+        movement.Enable();
+    }
+
+    private void OnDisable()
+    {
+        movement.Disable();
+    }
+
+    void FixedUpdate()
+    {
+        Fly();
+
     }
 
     void Fly()
     {
-        
+        // Nhận Input từ bàn phím 
+        float horizontalThrow = movement.ReadValue<Vector2>().x;
+        float verticalThrow = movement.ReadValue<Vector2>().y;
+
+        // Tạo biến offset để gán vào position mới của Ship
+        float xOffset = horizontalThrow * controlSpeed * Time.deltaTime;
+        float yOffset = verticalThrow * controlSpeed * Time.deltaTime;
+
+        // thêm offset vào vị trí hiện tại (update từng frame)
+        float newXPos = transform.localPosition.x + xOffset;
+        float newYPos = transform.localPosition.y + yOffset;
+
+        // gán vào vị trí mới 
+        transform.localPosition = new Vector3(newXPos, newYPos, transform.localPosition.z);
+            
+
     }
+
+
 }

@@ -793,14 +793,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  playerMovement:
-    m_Name: Player Movement
+  movement:
+    m_Name: Movement
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: ee3c2d36-69e7-49fa-a164-00f176c5d7f5
+    m_Id: ab307d05-742c-4082-959b-1c08e37d02f9
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 26b020d1-3b9b-49ec-996b-09d6a2de4548
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 594822fe-e2d5-4fd4-bd4d-c5c26f602acf
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 3e5431cf-f21c-40f3-a33a-04c6eefc4b70
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement
+      m_Flags: 8
+    - m_Name: left
+      m_Id: c61944d9-5ea3-4213-9a37-33b9aafaacf4
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement
+      m_Flags: 8
+    - m_Name: right
+      m_Id: ce629362-f50e-4b11-8ab6-f3784706f143
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement
+      m_Flags: 8
     m_Flags: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -809,5 +849,5 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 695939822}
   - {fileID: 585709626}
-  - {fileID: 1396867622}
   - {fileID: 1962109305}
+  - {fileID: 1396867622}
