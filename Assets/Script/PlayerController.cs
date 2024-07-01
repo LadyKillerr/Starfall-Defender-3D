@@ -8,14 +8,10 @@ public class PlayerController : MonoBehaviour
     [Header("Move Speed Tuning")]
     [SerializeField] float controlSpeed = 10f;
 
-    //float horizontalThrow;
-    //float verticalThrow;
+    [SerializeField] float clampedXRange = 10f;
+    [SerializeField] float clampedYMin = 0f;
+    [SerializeField] float clampedYMax = 10f;
 
-    //float xOffset;
-    //float yOffset;
-
-    //float newXPos;
-    //float newYPos;
 
     void Awake()
     {
@@ -49,11 +45,15 @@ public class PlayerController : MonoBehaviour
         float yOffset = verticalThrow * controlSpeed * Time.deltaTime;
 
         // thêm offset vào vị trí hiện tại (update từng frame)
-        float newXPos = transform.localPosition.x + xOffset;
-        float newYPos = transform.localPosition.y + yOffset;
+        float rawXPos = transform.localPosition.x + xOffset;
+        float rawYPos = transform.localPosition.y + yOffset;
+
+        // Clamped giá trị di chuyển 
+        float clampedXpos = Mathf.Clamp(rawXPos, -clampedXRange, clampedXRange);
+        float clampedYPos = Mathf.Clamp(rawYPos, clampedYMin, clampedYMax);
 
         // gán vào vị trí mới 
-        transform.localPosition = new Vector3(newXPos, newYPos, transform.localPosition.z);
+        transform.localPosition = new Vector3(clampedXpos, clampedYPos, transform.localPosition.z);
             
 
     }
