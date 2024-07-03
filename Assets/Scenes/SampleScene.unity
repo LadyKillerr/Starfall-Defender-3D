@@ -424,7 +424,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -699,19 +699,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99999934
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
+      value: 0.000000007450581
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 8.1490725e-10
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -723,7 +723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344142271518856427, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.135
       objectReference: {fileID: 0}
     - target: {fileID: 8972218152350845462, guid: 9a3ef39947ded05448cb0d52326cd1f2, type: 3}
       propertyPath: m_Name
@@ -792,7 +792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c48de18c2346a4c8a544ee662b2ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   movement:
     m_Name: Movement
     m_Type: 0
@@ -842,6 +841,14 @@ MonoBehaviour:
       m_Action: Movement
       m_Flags: 8
     m_Flags: 0
+  controlSpeed: 12
+  clampedXRange: 11
+  clampedYMin: -4
+  clampedYMax: 14
+  pitchFactor: -2
+  pitchTurnSpeed: -20
+  YawFactor: 1
+  rollFactor: -10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
