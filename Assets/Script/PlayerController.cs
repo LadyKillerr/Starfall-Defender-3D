@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         //float yawDueToMovement = horizontalThrow * yawTurnSpeed;
 
         //float rollDueToPosition 
-        float rollDueToMovement = transform.localPosition.z * horizontalThrow * rollFactor;
+        float rollDueToMovement =  horizontalThrow * rollFactor;
 
         float pitch = pitchDueToPosition + pitchDueToMovement;
         float yaw = yawDueToPosition;
