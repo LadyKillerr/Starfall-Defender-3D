@@ -1,28 +1,39 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.WSA;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField] InputAction movement;
     float horizontalThrow;
     float verticalThrow;
 
-    [SerializeField] InputAction movement;
+    [SerializeField] InputAction fire;
+
 
     [Header("Movement Tuning")]
+    [Tooltip("How fast the player moving up and down")]
     [SerializeField] float controlSpeed = 10f;
 
-    [SerializeField] float clampedXRange = 10f;
-    [SerializeField] float clampedYMin = 0f;
+    [Tooltip("How far player moving horizontally")] [SerializeField] float clampedXRange = 10f;
+    [Tooltip("How far player moving vertically")] [SerializeField] float clampedYMin = 0f;
     [SerializeField] float clampedYMax = 15f;
 
-    [Header("Rotation Tuning")]
-    [SerializeField] float pitchFactor = -2f;
-    [SerializeField] float pitchTurnSpeed = -10f;
+    [Header("Position Based Rotation")]
+    [Tooltip("Define player rotating speed when moving around\n Pitch is Y axis\n Yaw is X axis")]
+    [SerializeField] float positionBasedPitch = -2f;
+    [SerializeField] float positionBasedYaw = 2f;
 
-    [SerializeField] float YawFactor = 2f;
-    //[SerializeField] float yawTurnSpeed = 15f;
+    [Header("Control Based Rotation")]
+    [SerializeField] float controlBasedPitch = -10f;
+    [SerializeField] float controlBasedRoll = -15f;
 
-    [SerializeField] float rollFactor = -15f;
+    [Header("Weapon Firing")]
+    [Tooltip("Put all player's laser particle here")]
+    [SerializeField] GameObject[] lasers;
+
 
     void Awake()
     {
@@ -32,11 +43,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         movement.Enable();
+        fire.Enable();
     }
 
     private void OnDisable()
     {
         movement.Disable();
+        fire.Disable();
     }
 
     void Update()
@@ -48,8 +61,9 @@ public class PlayerController : MonoBehaviour
     void Fly()
     {
         // Nhận Input từ bàn phím 
-         horizontalThrow = movement.ReadValue<Vector2>().x;
-         verticalThrow = movement.ReadValue<Vector2>().y;
+        horizontalThrow = movement.ReadValue<Vector2>().x;
+        verticalThrow = movement.ReadValue<Vector2>().y;
+        
 
         #region ShipMovement
         // Tạo biến offset để gán vào position mới của Ship
@@ -70,14 +84,14 @@ public class PlayerController : MonoBehaviour
 
         #region ShipRotation
 
-        float pitchDueToPosition = transform.localPosition.y * pitchFactor;
-        float pitchDueToMovement = verticalThrow * pitchTurnSpeed;
+        float pitchDueToPosition = transform.localPosition.y * positionBasedPitch;
+        float pitchDueToMovement = verticalThrow * controlBasedPitch;
 
-        float yawDueToPosition = transform.localPosition.x * YawFactor;
+        float yawDueToPosition = transform.localPosition.x * positionBasedYaw;
         //float yawDueToMovement = horizontalThrow * yawTurnSpeed;
 
         //float rollDueToPosition 
-        float rollDueToMovement =  horizontalThrow * rollFactor;
+        float rollDueToMovement =  horizontalThrow * controlBasedRoll;
 
         float pitch = pitchDueToPosition + pitchDueToMovement;
         float yaw = yawDueToPosition;
@@ -87,7 +101,28 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
+        #region ShipShooting
+        if (fire.ReadValue<float>() > 0.5f)
+        {
+            ToggleLasers(true);
+        }
+        else
+        {
+            ToggleLasers(false);
+        };
+        
+        #endregion
+
     }
 
+
+    private void ToggleLasers(bool isActive)
+    {
+        foreach(GameObject laserParticle in lasers)
+        {
+            var emissionModules = laserParticle.GetComponent<ParticleSystem>().emission;
+            emissionModules.enabled = isActive ;
+        }
+    }
 
 }
