@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float loadDelay = 1f;
+    [SerializeField] ParticleSystem crashParticles;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,16 +18,6 @@ public class CollisionHandler : MonoBehaviour
     {
         
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        string objectColliding = this.name;
-        string otherObject = collision.gameObject.name;
-
-        
-    }
-
-    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -43,12 +34,19 @@ public class CollisionHandler : MonoBehaviour
 
     void LoadCrashSequence()
     {
+        // khoá player movement
         GetComponent<PlayerController>().enabled = false;
 
+        // bật VFX 
+        crashParticles.Play();
+
+        // tắt hình tàu
+        GetComponent<MeshRenderer>().enabled = false;
+
+        // tắt box collider để ko va chạm được với 2 vật liền nhau 
+        GetComponent<BoxCollider>().enabled = false;
+
         StartCoroutine(ResetScene(loadDelay));
-
-
-
     }
 
     IEnumerator ResetScene(float delay)

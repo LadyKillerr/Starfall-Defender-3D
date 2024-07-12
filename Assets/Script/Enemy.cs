@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    [SerializeField] ParticleSystem enemyVFX;
+    [SerializeField] Transform spawnAtRuntime;
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log($"Im Hit by:  {other.gameObject.name }" );
-        //Destroy(gameObject);
+
+        ParticleSystem vfx = Instantiate(enemyVFX, transform.position, Quaternion.identity);
+        vfx.transform.parent = spawnAtRuntime;
+
+        Destroy(gameObject);
     }
 }
