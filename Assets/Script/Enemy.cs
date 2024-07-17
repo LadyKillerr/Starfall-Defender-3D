@@ -13,11 +13,22 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] ParticleSystem shootedVFX;
     [SerializeField] ParticleSystem explodedVFX;
-    [SerializeField] Transform spawnAtRuntime;
+    GameObject parentGameObject;
 
-    private void Awake()
+
+    
+ 
+    void Awake()
     {
+        AddRigidbody();
         scoreBoard = FindAnyObjectByType<ScoreBoard>();
+        parentGameObject = GameObject.FindWithTag("RuntimeBin");
+    }
+
+    void AddRigidbody()
+    {
+        gameObject.AddComponent<Rigidbody>();
+        GetComponent<Rigidbody>().useGravity = false;
     }
 
     void OnParticleCollision(GameObject other)
@@ -34,7 +45,7 @@ public class Enemy : MonoBehaviour
             enemyHealth -= subtractedPerHit;
 
             ParticleSystem hitVFX = Instantiate(shootedVFX, transform.position, Quaternion.identity);
-            hitVFX.transform.parent = spawnAtRuntime;
+            hitVFX.transform.parent = parentGameObject.transform;
 
             scoreBoard.IncreaseScore(scorePerHit);
 
@@ -42,7 +53,7 @@ public class Enemy : MonoBehaviour
         else if (enemyHealth <= 1)
         {
             ParticleSystem explodeVFX = Instantiate(explodedVFX, transform.position, Quaternion.identity);
-            explodeVFX.transform.parent = spawnAtRuntime;
+            explodeVFX.transform.parent = parentGameObject.transform;
 
             scoreBoard.IncreaseScore(scorePerKill);
 

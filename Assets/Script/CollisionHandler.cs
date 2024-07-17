@@ -29,7 +29,7 @@ public class CollisionHandler : MonoBehaviour
         
 
         // another way of saying debug.log
-        Debug.Log($"{this.name} Triggered by {otherObject}");
+        //Debug.Log($"{this.name} Triggered by {otherObject}");
     }
 
     void LoadCrashSequence()
