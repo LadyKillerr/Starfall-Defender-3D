@@ -20,16 +20,25 @@ public class CollisionHandler : MonoBehaviour
 
     int targetHealth;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Player Voice")]
+    AudioSource shipAudioSource;
+    [SerializeField] float sfxVolume = .75f;
+    [SerializeField] AudioClip gotHitSFX;
+    [SerializeField] AudioClip onDeadSFX;
+
+    private void Awake()
+    {
+        shipAudioSource = GetComponent<AudioSource>();
+    }
+
     void Start()
     {
         targetHealth = playerHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        DeductPlayerHealth();   
+        DeductPlayerHealth();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +48,15 @@ public class CollisionHandler : MonoBehaviour
         {
             targetHealth = playerHealth - damageOnHit;
 
-            
+            if (shipAudioSource.isPlaying)
+            {
+                shipAudioSource.Stop();
+                PlayOnHitSFX();
+            }
+            else
+            {
+                PlayOnHitSFX();
+            }
 
             ParticleSystem vfx = Instantiate(onHitEffects, transform.position, Quaternion.identity);
             vfx.transform.parent = runtimeBin.transform;
@@ -58,16 +75,22 @@ public class CollisionHandler : MonoBehaviour
         {
             playerHealth -= deductAmount;
         }
-        //else if (targetHealth <= 1 && playerHealth > targetHealth)
-        //{
-        //    playerHealth -= deductAmount;
-        //}
 
-        healthText.text = "Health: " + playerHealth.ToString();
+        healthText.text = "Shield: " + playerHealth.ToString();
     }
 
     void LoadCrashSequence()
     {
+        if (shipAudioSource.isPlaying)
+        {
+            shipAudioSource.Stop();
+            PlayOnDeadSFX();
+        }
+        else
+        {
+            PlayOnDeadSFX();
+        }
+
         // khoá player movement
         GetComponent<PlayerController>().enabled = false;
 
@@ -90,8 +113,26 @@ public class CollisionHandler : MonoBehaviour
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
-        
 
 
+
+    }
+
+    void PlayAudioClip(AudioClip SFXToPlay, float volume)
+    {
+        if (shipAudioSource != null)
+        {
+            shipAudioSource.PlayOneShot(SFXToPlay, volume);
+        }
+    }
+
+    void PlayOnHitSFX()
+    {
+        PlayAudioClip(gotHitSFX, sfxVolume);
+    }
+
+    void PlayOnDeadSFX()
+    {
+        PlayAudioClip(onDeadSFX, sfxVolume);
     }
 }
