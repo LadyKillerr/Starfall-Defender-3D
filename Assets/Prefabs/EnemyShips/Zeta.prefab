@@ -869,7 +869,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 330bedba310e2284aab3841c2cde6780, type: 2}
+  - {fileID: 2100000, guid: 3057f5a2b92dd3b47b45415db850c097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -905,11 +905,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorePerHit: 10
   scorePerKill: 100
-  enemyHealth: 100
+  enemyHealth: 80
   subtractedPerHit: 10
   shootedVFX: {fileID: 427654794207544405, guid: 20491da9fabc3ac41a50de7040156eba, type: 3}
   explodedVFX: {fileID: 427654794207544405, guid: 4dc7904a75c3dcc42ba837954ab7afa1, type: 3}
-  spawnAtRuntime: {fileID: 0}
 --- !u!1 &3600406669104347202
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,35 +1,69 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float loadDelay = 1f;
     [SerializeField] ParticleSystem crashParticles;
 
+    [Header("Player Health")]
+    [SerializeField] int playerHealth = 100;
+    [SerializeField] int damageOnHit = 25;
+    [SerializeField] int deductAmount = 5;
+    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] ParticleSystem onHitEffects;
+    [SerializeField] Transform runtimeBin;
+
+    int targetHealth;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        targetHealth = playerHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DeductPlayerHealth();   
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        string objectTriggering = this.name;
-        string otherObject = other.gameObject.name;
 
-        LoadCrashSequence();
+        if (playerHealth > damageOnHit)
+        {
+            targetHealth = playerHealth - damageOnHit;
 
-        
+            
 
-        // another way of saying debug.log
-        //Debug.Log($"{this.name} Triggered by {otherObject}");
+            ParticleSystem vfx = Instantiate(onHitEffects, transform.position, Quaternion.identity);
+            vfx.transform.parent = runtimeBin.transform;
+        }
+        else
+        {
+            targetHealth = 0;
+            LoadCrashSequence();
+        }
+
+    }
+
+    void DeductPlayerHealth()
+    {
+        if (playerHealth > targetHealth)
+        {
+            playerHealth -= deductAmount;
+        }
+        //else if (targetHealth <= 1 && playerHealth > targetHealth)
+        //{
+        //    playerHealth -= deductAmount;
+        //}
+
+        healthText.text = "Health: " + playerHealth.ToString();
     }
 
     void LoadCrashSequence()

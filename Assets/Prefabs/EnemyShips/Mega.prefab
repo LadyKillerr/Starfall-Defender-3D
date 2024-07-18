@@ -693,11 +693,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorePerHit: 10
   scorePerKill: 100
-  enemyHealth: 100
+  enemyHealth: 30
   subtractedPerHit: 10
   shootedVFX: {fileID: 427654794207544405, guid: 20491da9fabc3ac41a50de7040156eba, type: 3}
   explodedVFX: {fileID: 427654794207544405, guid: 4dc7904a75c3dcc42ba837954ab7afa1, type: 3}
-  spawnAtRuntime: {fileID: 0}
 --- !u!1 &5019924919749035910
 GameObject:
   m_ObjectHideFlags: 0

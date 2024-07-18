@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Score")]
     ScoreBoard scoreBoard;
-    [SerializeField] int scorePerHit = 10;
+
     [SerializeField] int scorePerKill = 100;
 
     [Header("Health")]
@@ -16,8 +16,8 @@ public class Enemy : MonoBehaviour
     GameObject parentGameObject;
 
 
-    
- 
+
+
     void Awake()
     {
         AddRigidbody();
@@ -27,8 +27,16 @@ public class Enemy : MonoBehaviour
 
     void AddRigidbody()
     {
-        gameObject.AddComponent<Rigidbody>();
-        GetComponent<Rigidbody>().useGravity = false;
+        if (GetComponent<Rigidbody>() == null)
+        {
+            gameObject.AddComponent<Rigidbody>();
+            GetComponent<Rigidbody>().useGravity = false;
+
+        }
+        else
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 
     void OnParticleCollision(GameObject other)
@@ -47,7 +55,7 @@ public class Enemy : MonoBehaviour
             ParticleSystem hitVFX = Instantiate(shootedVFX, transform.position, Quaternion.identity);
             hitVFX.transform.parent = parentGameObject.transform;
 
-            scoreBoard.IncreaseScore(scorePerHit);
+
 
         }
         else if (enemyHealth <= 1)
