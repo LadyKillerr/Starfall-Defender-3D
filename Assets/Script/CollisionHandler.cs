@@ -134,5 +134,6 @@ public class CollisionHandler : MonoBehaviour
     void PlayOnDeadSFX()
     {
         PlayAudioClip(onDeadSFX, sfxVolume);
+
     }
 }

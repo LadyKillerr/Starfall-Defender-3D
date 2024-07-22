@@ -11,8 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] int enemyHealth = 100;
     [SerializeField] int subtractedPerHit = 10;
 
-    [SerializeField] ParticleSystem shootedVFX;
-    [SerializeField] ParticleSystem explodedVFX;
+    [SerializeField] ParticleSystem shootedFX;
+    [SerializeField] ParticleSystem explodedFX;
     GameObject parentGameObject;
 
 
@@ -52,16 +52,16 @@ public class Enemy : MonoBehaviour
         {
             enemyHealth -= subtractedPerHit;
 
-            ParticleSystem hitVFX = Instantiate(shootedVFX, transform.position, Quaternion.identity);
-            hitVFX.transform.parent = parentGameObject.transform;
+            ParticleSystem hitFX = Instantiate(shootedFX, transform.position, Quaternion.identity);
+            hitFX.transform.parent = parentGameObject.transform;
 
 
 
         }
         else if (enemyHealth <= 1)
         {
-            ParticleSystem explodeVFX = Instantiate(explodedVFX, transform.position, Quaternion.identity);
-            explodeVFX.transform.parent = parentGameObject.transform;
+            ParticleSystem explodeFX = Instantiate(explodedFX, transform.position, Quaternion.identity);
+            explodeFX.transform.parent = parentGameObject.transform;
 
             scoreBoard.IncreaseScore(scorePerKill);
 
