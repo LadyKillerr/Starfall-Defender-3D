@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.WSA;
+
 
 public class PlayerController : MonoBehaviour
 {

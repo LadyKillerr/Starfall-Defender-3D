@@ -19,7 +19,7 @@ MonoBehaviour:
     rid: 5117233957013291008
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/SampleScene.unity
+    m_path: Assets/Scenes/MainGame.unity
   references:
     version: 2
     RefIds:
